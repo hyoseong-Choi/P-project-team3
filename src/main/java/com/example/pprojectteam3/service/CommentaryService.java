@@ -18,7 +18,7 @@ public class CommentaryService {
     public Integer addCommentary(CommentaryInput commentaryInput) {
         //여기에 만드시면 됩니다.
 
-        return commentaryRepository.save(Commentary.createCommentary(commentaryInput.getTime(), ㅇ/*해설 내용*/)).getId();
+        return commentaryRepository.save(Commentary.createCommentary(commentaryInput.getTime(), /*해설 내용*/)).getId();
     }
     
     public List<CommentaryOutput> findCommentaries() {
