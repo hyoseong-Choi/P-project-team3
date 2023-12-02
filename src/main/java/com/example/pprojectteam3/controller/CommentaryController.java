@@ -1,16 +1,18 @@
 package com.example.pprojectteam3.controller;
 
-import com.example.pprojectteam3.dto.CommentaryInput;
 import com.example.pprojectteam3.dto.CommentaryOutput;
 import com.example.pprojectteam3.service.CommentaryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.FileUrlResource;
-import org.springframework.core.io.UrlResource;
+import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.ResourceRegion;
 import org.springframework.http.*;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -54,5 +56,10 @@ public class CommentaryController {
         resourceRegion = new ResourceRegion(video, 0, rangeLength);
         log.info("VideoController.getVideo");
         return ResponseEntity.status(HttpStatus.PARTIAL_CONTENT).body(resourceRegion);
+    }
+    
+    @GetMapping(value = "/video2", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)//MediaType.APPLICATION_OCTET_STREAM_VALUE
+    public Resource getVideo2(@RequestHeader HttpHeaders headers) throws IOException {
+        return new ByteArrayResource(FileCopyUtils.copyToByteArray(new FileInputStream("/home/ubuntu/video2.mp4")));
     }
 }
