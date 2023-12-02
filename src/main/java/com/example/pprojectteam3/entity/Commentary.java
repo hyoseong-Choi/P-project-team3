@@ -21,9 +21,10 @@ public class Commentary {
     private LocalTime time;
     private String content;
     
-    public static Commentary createCommentary(LocalTime time, String content) {
+    public static Commentary createCommentary(String time, String content) {
         Commentary commentary = new Commentary();
-        commentary.time = time;
+        
+        commentary.time = LocalTime.parse("00:" + time);
         commentary.content = content;
         return commentary;
     }
