@@ -35,7 +35,7 @@ public class CommentaryController {
     
     @GetMapping(value = "/video", produces = "video/mp4")//MediaType.APPLICATION_OCTET_STREAM_VALUE
     public ResponseEntity<ResourceRegion> getVideo(@RequestHeader HttpHeaders headers) throws IOException {
-        log.info("VideoController.getVideo");
+        
         FileUrlResource video = new FileUrlResource("/home/ubuntu/video2.mp4");
         
         ResourceRegion resourceRegion;
@@ -55,6 +55,7 @@ public class CommentaryController {
         }
         long rangeLength = Long.min(chunkSize, contentLength);
         resourceRegion = new ResourceRegion(video, 0, rangeLength);
+        log.info("VideoController.getVideo");
         return ResponseEntity.status(HttpStatus.PARTIAL_CONTENT).body(resourceRegion);
     }
 }
