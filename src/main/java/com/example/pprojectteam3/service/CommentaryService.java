@@ -15,11 +15,11 @@ import java.util.stream.Collectors;
 public class CommentaryService {
     private final CommentaryRepository commentaryRepository;
     
-    public Integer addCommentary(CommentaryInput commentaryInput) {
-        //여기에 만드시면 됩니다.
-
-        return commentaryRepository.save(Commentary.createCommentary(commentaryInput.getTime(), /*해설 내용*/)).getId();
-    }
+//    public Integer addCommentary(CommentaryInput commentaryInput) {
+//        //여기에 만드시면 됩니다.
+//
+//        return commentaryRepository.save(Commentary.createCommentary(commentaryInput.getTime(), /*해설 내용*/)).getId();
+//    }
     
     public List<CommentaryOutput> findCommentaries() {
         return commentaryRepository.findByOrderByTimeAsc().stream().map(CommentaryOutput::new).collect(Collectors.toList());

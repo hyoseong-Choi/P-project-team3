@@ -22,10 +22,10 @@ import java.util.Optional;
 public class CommentaryController {
     private final CommentaryService commentaryService;
     
-    @PostMapping("/commentary")
-    public Integer commentaryAdd(@RequestBody CommentaryInput commentaryInput) {
-        return commentaryService.addCommentary(commentaryInput);
-    }
+//    @PostMapping("/commentary")
+//    public Integer commentaryAdd(@RequestBody CommentaryInput commentaryInput) {
+//        return commentaryService.addCommentary(commentaryInput);
+//    }
     
     @GetMapping("/commentary")
     public List<CommentaryOutput> CommentaryList() {
@@ -35,7 +35,7 @@ public class CommentaryController {
     @GetMapping(value = "/video", produces = "video/mp4")//MediaType.APPLICATION_OCTET_STREAM_VALUE
     public ResponseEntity<ResourceRegion> getVideo(@RequestHeader HttpHeaders headers) throws IOException {
         log.info("VideoController.getVideo");
-        UrlResource video = new UrlResource("file:C:\\Users\\gytjd\\Documents\\Bandicam\\video.mp4");
+        UrlResource video = new UrlResource("file:/media/Grizzlies & Warriors EPIC OT BATTLE - 2021 NBA Play-In Tournament _ NBA Classic Game #NBARivalsWeek.mp4");
         ResourceRegion resourceRegion;
         
         final long chunkSize = 1000000L;
