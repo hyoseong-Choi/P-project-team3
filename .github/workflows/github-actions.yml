@@ -60,4 +60,4 @@ jobs:
             sudo docker rm -f pproject
             docker image rm ${{ secrets.DOCKER_REPO }} -f
             sudo docker pull ${{ secrets.DOCKER_REPO }}
-            sudo docker run --name pproject --network host -d -v ~/home/ubuntu/video2.mp4:/home/ubuntu/video2.mp4 -p 8080:8080 ${{ secrets.DOCKER_REPO }}
+            sudo docker run --name pproject --network host -d -v ~/home/ubuntu:/home/ubuntu -p 8080:8080 ${{ secrets.DOCKER_REPO }}

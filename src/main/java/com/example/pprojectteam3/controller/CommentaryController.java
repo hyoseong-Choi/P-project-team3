@@ -59,7 +59,7 @@ public class CommentaryController {
     }
     
     @GetMapping(value = "/video2", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)//MediaType.APPLICATION_OCTET_STREAM_VALUE
-    public Resource getVideo2(@RequestHeader HttpHeaders headers) throws IOException {
+    public Resource getVideo2() throws IOException {
         return new ByteArrayResource(FileCopyUtils.copyToByteArray(new FileInputStream("/home/ubuntu/video2.mp4")));
     }
 }
