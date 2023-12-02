@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CommentaryService {
     private final CommentaryRepository commentaryRepository;
-    private final WebClient webClient;
+   // private final WebClient webClient;
 
 
 

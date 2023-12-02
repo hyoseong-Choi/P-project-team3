@@ -16,8 +16,8 @@ public class openaiController {
     private final String apiURL;
     private final WebClient webClient;
 
-    public openaiController(@Value("${openai.model}") String model,
-                            @Value("${openai.api.url}") String apiURL,
+    public openaiController(@Value("${openapi.model.name}") String model,
+                            @Value("${openapi.api.url}") String apiURL,
                             WebClient.Builder webClientBuilder) {
         this.model = model;
         this.apiURL = apiURL;
@@ -28,7 +28,8 @@ public class openaiController {
     public String chat(@RequestParam("prompt") String prompt) {
         ChatGPTRequest request = new ChatGPTRequest(model, prompt);
         ChatGptResponse chatGptResponse = webClient.post()
-                .uri("https://api.openai.com/v1/completions")  // 실제 GPT 엔드포인트로 대체
+                .uri("https://api.openai.com/v1/chat/completions")  // 실제 GPT 엔드포인트로 대체
+                .header("Authorization","Bearer api key here")
                 .bodyValue(request)
                 .retrieve()
                 .bodyToMono(ChatGptResponse.class)
