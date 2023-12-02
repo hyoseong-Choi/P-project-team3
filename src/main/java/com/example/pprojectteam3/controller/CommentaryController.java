@@ -39,7 +39,7 @@ public class CommentaryController {
         
         ResourceRegion resourceRegion;
         
-        final long chunkSize = 1000000L;
+        final long chunkSize = 4096L;
         long contentLength = video.contentLength();
         
         Optional<HttpRange> optional = headers.getRange().stream().findFirst();
@@ -60,6 +60,6 @@ public class CommentaryController {
     
     @GetMapping(value = "/video2", produces = "video/mp4")//MediaType.APPLICATION_OCTET_STREAM_VALUE
     public Resource getVideo2() throws IOException {
-        return new ByteArrayResource(FileCopyUtils.copyToByteArray(new FileUrlResource("/home/ubuntu/video2.mp4").getFile()));
+        return new ByteArrayResource(FileCopyUtils.copyToByteArray(new FileUrlResource("/home/ubuntu/video2.mp4").getInputStream()));
     }
 }
