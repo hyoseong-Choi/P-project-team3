@@ -5,6 +5,7 @@ import com.example.pprojectteam3.dto.CommentaryOutput;
 import com.example.pprojectteam3.service.CommentaryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.FileUrlResource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.core.io.support.ResourceRegion;
 import org.springframework.http.HttpHeaders;
@@ -35,7 +36,8 @@ public class CommentaryController {
     @GetMapping(value = "/video", produces = "video/mp4")//MediaType.APPLICATION_OCTET_STREAM_VALUE
     public ResponseEntity<ResourceRegion> getVideo(@RequestHeader HttpHeaders headers) throws IOException {
         log.info("VideoController.getVideo");
-        UrlResource video = new UrlResource("/home/ubuntu/video.mp4");
+        FileUrlResource video = new FileUrlResource("/home/ubuntu/video.mp4");
+        
         ResourceRegion resourceRegion;
         
         final long chunkSize = 1000000L;
