@@ -32,7 +32,7 @@ public class CommentaryController {
         return commentaryService.findCommentaries();
     }
     
-    @GetMapping(value = "/video", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)//MediaType.APPLICATION_OCTET_STREAM_VALUE
+    @GetMapping(value = "/video", produces = "video/mp4")//MediaType.APPLICATION_OCTET_STREAM_VALUE
     public ResponseEntity<ResourceRegion> getVideo(@RequestHeader HttpHeaders headers) throws IOException {
         
         FileUrlResource video = new FileUrlResource("/home/ubuntu/video2.mp4");
@@ -58,7 +58,7 @@ public class CommentaryController {
         return ResponseEntity.status(HttpStatus.PARTIAL_CONTENT).body(resourceRegion);
     }
     
-    @GetMapping(value = "/video2", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)//MediaType.APPLICATION_OCTET_STREAM_VALUE
+    @GetMapping(value = "/video2", produces = "video/mp4")//MediaType.APPLICATION_OCTET_STREAM_VALUE
     public Resource getVideo2() throws IOException {
         return new ByteArrayResource(FileCopyUtils.copyToByteArray(new FileUrlResource("/home/ubuntu/video2.mp4").getFile()));
     }
