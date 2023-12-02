@@ -35,7 +35,7 @@ public class CommentaryController {
     @GetMapping(value = "/video", produces = "video/mp4")//MediaType.APPLICATION_OCTET_STREAM_VALUE
     public ResponseEntity<ResourceRegion> getVideo(@RequestHeader HttpHeaders headers) throws IOException {
         log.info("VideoController.getVideo");
-        UrlResource video = new UrlResource("file:/media/Grizzlies & Warriors EPIC OT BATTLE - 2021 NBA Play-In Tournament _ NBA Classic Game #NBARivalsWeek.mp4");
+        UrlResource video = new UrlResource("file:/media/video.mp4");
         ResourceRegion resourceRegion;
         
         final long chunkSize = 1000000L;
