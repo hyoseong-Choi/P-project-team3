@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CommentaryInput {
     
-    
     private String time;
     private String team;
     private String player;
