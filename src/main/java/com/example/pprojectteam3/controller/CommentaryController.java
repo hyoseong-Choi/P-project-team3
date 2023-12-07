@@ -31,8 +31,8 @@ public class CommentaryController {
         return commentaryService.findCommentaries();
     }
     
-    @GetMapping(value = "/video", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)//MediaType.APPLICATION_OCTET_STREAM_VALUE
-    public ResponseEntity<ResourceRegion> getVideo(@RequestHeader HttpHeaders headers) throws IOException {
+    @GetMapping(value = "/video", produces = "video/mp4")//MediaType.APPLICATION_OCTET_STREAM_VALUE
+    public ResourceRegion getVideo(@RequestHeader HttpHeaders headers) throws IOException {
         
         FileUrlResource video = new FileUrlResource("/home/ubuntu/video.mp4");
         
@@ -49,12 +49,12 @@ public class CommentaryController {
             long end = httpRange.getRangeEnd(contentLength);
             long rangeLength = Long.min(chunkSize, end - start + 1);
             resourceRegion = new ResourceRegion(video, start, rangeLength);
-            return ResponseEntity.status(HttpStatus.PARTIAL_CONTENT).body(resourceRegion);
+            return resourceRegion;
         }
         long rangeLength = Long.min(chunkSize, contentLength);
         resourceRegion = new ResourceRegion(video, 0, rangeLength);
         log.info("VideoController.getVideo");
-        return ResponseEntity.status(HttpStatus.PARTIAL_CONTENT).body(resourceRegion);
+        return resourceRegion;
     }
     
 //    @GetMapping(value = "/video2", produces = "video/mp4")//MediaType.APPLICATION_OCTET_STREAM_VALUE
