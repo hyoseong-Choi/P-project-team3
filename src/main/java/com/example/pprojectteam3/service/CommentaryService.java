@@ -34,7 +34,7 @@ public class CommentaryService {
         messages.add(new ChatMessage(USER.value(), commentaryInput.getTeam() + ", " + commentaryInput.getPlayer() + ", " + commentaryInput.getPosition() + ", " +
                 commentaryInput.getAction() + ", " + commentaryInput.getResult() + "\n" +
                 "Take this information and make a commentary Like commentating a real basketball game. " +
-                "Please limit the number of characters to 200 characters or less. Don't put \" in your sentences"));
+                "Please limit the number of characters to 200 characters or less. Don't put quotation marks in your sentences"));
         
         ChatCompletionRequest chatCompletionRequest = ChatCompletionRequest.builder()
                 .messages(messages)
