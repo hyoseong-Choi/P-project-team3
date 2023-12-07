@@ -1,18 +1,16 @@
 package com.example.pprojectteam3.controller;
 
+import com.example.pprojectteam3.dto.CommentaryInput;
 import com.example.pprojectteam3.dto.CommentaryOutput;
 import com.example.pprojectteam3.service.CommentaryService;
+import com.theokanning.openai.completion.chat.ChatCompletionChoice;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.FileUrlResource;
-import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.ResourceRegion;
 import org.springframework.http.*;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -22,10 +20,10 @@ import java.util.Optional;
 public class CommentaryController {
     private final CommentaryService commentaryService;
     
-//    @PostMapping("/commentary")
-//    public Integer commentaryAdd(@RequestBody CommentaryInput commentaryInput) {
-//        return commentaryService.addCommentary(commentaryInput);
-//    }
+    @PostMapping("/commentary")
+    public List<ChatCompletionChoice> commentaryAdd(@RequestBody CommentaryInput commentaryInput) {
+        return commentaryService.addCommentary(commentaryInput);
+    }
     
     @GetMapping("/commentary")
     public List<CommentaryOutput> CommentaryList() {
