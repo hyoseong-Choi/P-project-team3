@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 @Slf4j
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequiredArgsConstructor
 public class CommentaryController {
     private final CommentaryService commentaryService;
