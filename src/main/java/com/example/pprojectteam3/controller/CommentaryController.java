@@ -31,31 +31,36 @@ public class CommentaryController {
         return commentaryService.findCommentaries();
     }
     
-    @GetMapping(value = "/video", produces = "video/mp4")//MediaType.APPLICATION_OCTET_STREAM_VALUE
-    public ResourceRegion getVideo(@RequestHeader HttpHeaders headers) throws IOException {
-        
-        FileUrlResource video = new FileUrlResource("/home/ubuntu/video.mp4");
-        
-        ResourceRegion resourceRegion;
-        
-        final long chunkSize = 1000000L;
-        long contentLength = video.contentLength();
-        
-        Optional<HttpRange> optional = headers.getRange().stream().findFirst();
-        HttpRange httpRange;
-        if (optional.isPresent()) {
-            httpRange = optional.get();
-            long start = httpRange.getRangeStart(contentLength);
-            long end = httpRange.getRangeEnd(contentLength);
-            long rangeLength = Long.min(chunkSize, end - start + 1);
-            resourceRegion = new ResourceRegion(video, start, rangeLength);
-            return resourceRegion;
-        }
-        long rangeLength = Long.min(chunkSize, contentLength);
-        resourceRegion = new ResourceRegion(video, 0, rangeLength);
-        log.info("VideoController.getVideo");
-        return resourceRegion;
+    @GetMapping("/video")
+    public String getVideo() {
+        return "https://pproject.s3.ap-northeast-2.amazonaws.com/video.mp4";
     }
+    
+//    @GetMapping(value = "/video", produces = "video/mp4")//MediaType.APPLICATION_OCTET_STREAM_VALUE
+//    public ResourceRegion getVideo(@RequestHeader HttpHeaders headers) throws IOException {
+//
+//        FileUrlResource video = new FileUrlResource("/home/ubuntu/video.mp4");
+//
+//        ResourceRegion resourceRegion;
+//
+//        final long chunkSize = 1000000L;
+//        long contentLength = video.contentLength();
+//
+//        Optional<HttpRange> optional = headers.getRange().stream().findFirst();
+//        HttpRange httpRange;
+//        if (optional.isPresent()) {
+//            httpRange = optional.get();
+//            long start = httpRange.getRangeStart(contentLength);
+//            long end = httpRange.getRangeEnd(contentLength);
+//            long rangeLength = Long.min(chunkSize, end - start + 1);
+//            resourceRegion = new ResourceRegion(video, start, rangeLength);
+//            return resourceRegion;
+//        }
+//        long rangeLength = Long.min(chunkSize, contentLength);
+//        resourceRegion = new ResourceRegion(video, 0, rangeLength);
+//        log.info("VideoController.getVideo");
+//        return resourceRegion;
+//    }
     
 //    @GetMapping(value = "/video2", produces = "video/mp4")//MediaType.APPLICATION_OCTET_STREAM_VALUE
 //    public Resource getVideo2() throws IOException {
