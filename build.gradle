@@ -32,6 +32,7 @@ dependencies {
     runtimeOnly 'com.mysql:mysql-connector-j'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'io.netty:netty-resolver-dns-native-macos:4.1.70.Final:osx-aarch_64'//멕 전용
 }
 
 tasks.named('test') {

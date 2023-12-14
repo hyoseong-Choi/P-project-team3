@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 import static com.theokanning.openai.completion.chat.ChatMessageRole.SYSTEM;
 import static com.theokanning.openai.completion.chat.ChatMessageRole.USER;
 
+
 @Service
 @RequiredArgsConstructor
 public class CommentaryService {
@@ -30,11 +31,12 @@ public class CommentaryService {
     public List<ChatCompletionChoice> addCommentary(CommentaryInput commentaryInput) {
         OpenAiService openAiService = new OpenAiService(apiKey);
         List<ChatMessage> messages = new ArrayList<>();
-        messages.add(new ChatMessage(SYSTEM.value(), "You are a basketball commentator"));
+        messages.add(new ChatMessage(SYSTEM.value(), "You are a basketball commentator"+"You're passionate nba commentator. " +
+                "I'll give you keywords team, player name, time after game strted, player's location and player's actions " +
+                "with these information you have to make a commentary with in 200 char " +
+                "and all the players in this game are men "+"Take this information and make a commentary Like commentating a real basketball game and  Don't put quotation marks in your sentences "));
         messages.add(new ChatMessage(USER.value(), commentaryInput.getTeam() + ", " + commentaryInput.getPlayer() + ", " + commentaryInput.getPosition() + ", " +
-                commentaryInput.getAction() + ", " + commentaryInput.getResult() + "\n" +
-                "Take this information and make a commentary Like commentating a real basketball game. " +
-                "Please limit the number of characters to 200 characters or less. Don't put quotation marks in your sentences"));
+                commentaryInput.getAction() + ", " + commentaryInput.getResult() ));
         
         ChatCompletionRequest chatCompletionRequest = ChatCompletionRequest.builder()
                 .messages(messages)
@@ -45,6 +47,7 @@ public class CommentaryService {
         for (ChatCompletionChoice completionChoice : chatCompletionChoices) {
             commentaryRepository.save(Commentary.createCommentary(commentaryInput.getTime(), completionChoice.getMessage().getContent()/*해설 내용*/));
         }
+
         return chatCompletionChoices;
     }
     
