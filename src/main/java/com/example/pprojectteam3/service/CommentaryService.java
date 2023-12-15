@@ -36,7 +36,7 @@ public class CommentaryService {
     
     private int i = 0;
     
-    @Scheduled(fixedDelay = 60000)
+    @Scheduled(fixedDelay = 70000)
     private void gptScheduled() throws IOException {
         System.out.println("실행됨");
         ClassPathResource cpr = new ClassPathResource("action.json");
@@ -45,32 +45,33 @@ public class CommentaryService {
         
         Gson gson = new Gson();
         JsonArray jsonArray = gson.fromJson(jsonTxt, JsonArray.class);
-        
+        System.out.println(jsonArray.size());
         OpenAiService openAiService = new OpenAiService(apiKey);
         List<ChatMessage> messages = new ArrayList<>();
-        
+
         messages.add(new ChatMessage(SYSTEM.value(), "You are a basketball commentator" + "You're passionate nba commentator. " +
                 "I'll give you keywords team, player name, time after game strted, player's location and player's actions " +
                 "with these information you have to make a commentary with in 200 char " +
                 "and all the players in this game are men " +
                 "Take this information and make a commentary Like commentating a real basketball game and  Don't put quotation marks in your sentences "));
+
         if (i < jsonArray.size()) {
             for (int j = i; j < i + 3; j++) {
                 messages.add(new ChatMessage(USER.value(), jsonArray.get(j).getAsJsonObject().get("player").getAsString() + ", " +
                         jsonArray.get(j).getAsJsonObject().get("team").getAsString() + ", " + jsonArray.get(j).getAsJsonObject().get("position").getAsString() + ", " +
                         jsonArray.get(j).getAsJsonObject().get("action").getAsString()));
-                
+
                 ChatCompletionRequest chatCompletionRequest = ChatCompletionRequest.builder()
                         .messages(messages)
                         .model("gpt-3.5-turbo-1106")
                         .build();
-                
+
                 List<ChatCompletionChoice> chatCompletionChoices = openAiService.createChatCompletion(chatCompletionRequest).getChoices();
                 for (ChatCompletionChoice completionChoice : chatCompletionChoices) {
                     commentaryRepository.save(Commentary.createCommentary(
                             jsonArray.get(j).getAsJsonObject().get("time").getAsString(), completionChoice.getMessage().getContent()/*해설 내용*/));
                 }
-                
+
             }
             i = i + 3;
         }
