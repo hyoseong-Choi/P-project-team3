@@ -33,7 +33,12 @@ public class CommentaryController {
     
     @GetMapping("/video")
     public String getVideo() {
-        return "https://pproject.s3.ap-northeast-2.amazonaws.com/video.mp4";
+        return "https://pproject.s3.ap-northeast-2.amazonaws.com/game.mp4";
+    }
+    
+    @GetMapping("/2d-video")
+    public String get2dVideo() {
+        return "https://pproject.s3.ap-northeast-2.amazonaws.com/2d_game.mp4";
     }
     
 //    @GetMapping(value = "/video", produces = "video/mp4")//MediaType.APPLICATION_OCTET_STREAM_VALUE
